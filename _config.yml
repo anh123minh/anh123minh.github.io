@@ -21,7 +21,7 @@ description: A virtual proof that I'm awesome
 # List of links in the navigation bar
 navbar-links:
   About Me: "aboutme"
-  Blog: "/popular"
+  Authors: "/staff"
   Index: "/tags"
   Resources:
     - Beautiful Jekyll: "http://deanattali.com/beautiful-jekyll/"
@@ -173,8 +173,17 @@ paginate: 5
 kramdown:
   input: GFM
 
+collections:
+  authors:
+    output: true
+
 # Default YAML values (more information on Jekyll's site)
 defaults:
+   - scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
   -
     scope:
       path: ""
