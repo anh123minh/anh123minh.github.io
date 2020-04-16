@@ -179,7 +179,8 @@ collections:
 
 # Default YAML values (more information on Jekyll's site)
 defaults:
-   - scope:
+  - 
+    scope:
       path: ""
       type: "authors"
     values:
