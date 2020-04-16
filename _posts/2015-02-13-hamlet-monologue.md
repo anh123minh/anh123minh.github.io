@@ -3,6 +3,7 @@ layout: post
 title: To be
 subtitle: ... or not to be?
 tags: [books, shakespeare, test]
+author: ted
 ---
 
 To be, or not to be--that is the question:
