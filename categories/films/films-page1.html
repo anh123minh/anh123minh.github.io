@@ -1,3 +1,35 @@
 ---
 layout: page
 ---
+
+<div class="posts-list">
+    {% assign filtered_posts = site.posts | where: 'author', page.short_name %}
+    {% assign total_post_author = filtered_posts.size %}
+    {% assign total_page_author = total_post_author | divided_by: 10  %}
+    {% assign modulo_page_author = total_post_author | modulo: 10  %}
+    {% for i in (0..9) %}
+      {% if i != total_post_author %}
+        <article>
+          <a class="post-preview" href="{{ post[i].url | prepend: site.baseurl }}">
+            <h2 class="post-title">{{ post[i].title }}</h2>
+  
+            {% if post[i].subtitle %}
+            <h3 class="post-subtitle">
+              {{ post[i].subtitle }}
+            </h3>
+            {% endif %}
+            <p class="post-meta">
+              Posted on {{ post[i].date | date: "%B %-d, %Y" }}
+            </p>
+  
+            <div class="post-entry">
+              {{ post[i].content | truncatewords: 50 | strip_html | xml_escape}}
+              <span href="{{ post[i].url | prepend: site.baseurl }}" class="post-read-more">[Read&nbsp;More]</span>
+            </div>
+          </a>
+        </article>
+      {% else %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+</div>
