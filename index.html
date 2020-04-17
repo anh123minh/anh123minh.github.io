@@ -4,9 +4,9 @@ title: Pham Anh Minh
 subtitle: Do what you like, learn what you want and feel free!
 use-site-title: true
 ---
-
+{% assign paginator.posts = paginator.posts | where: 'author', 'ted' %}
 <div class="posts-list">
-  {% for post in paginator.posts | where: 'author', 'ted' %}
+  {% for post in paginator.posts %}
   <article class="post-preview">
     <a href="{{ post.url | relative_url }}">
 	  <h2 class="post-title">{{ post.title }}</h2>
