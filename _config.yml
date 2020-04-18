@@ -21,7 +21,8 @@ description: A virtual proof that I'm awesome
 # List of links in the navigation bar
 navbar-links:
   About Me: "aboutme"
-  Authors: "/staff"
+  Categories: "/categories"
+    - Authors: "/staff"
   Index: "/tags"
   Resources:
     - Beautiful Jekyll: "http://deanattali.com/beautiful-jekyll/"
@@ -176,6 +177,8 @@ kramdown:
 collections:
   authors:
     output: true
+  group:
+    out: true
 
 # Default YAML values (more information on Jekyll's site)
 defaults:
@@ -185,6 +188,12 @@ defaults:
       type: "authors"
     values:
       layout: "author"
+  - 
+    scope:
+      path: ""
+      type: "groups"
+    values:
+      layout: "page"
   -
     scope:
       path: ""
