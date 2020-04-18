@@ -32,4 +32,8 @@ layout: page
         {% break %}
       {% endif %}
     {% endfor %}
+<<<<<<< HEAD
 </div>-->
+=======
+</div>-->
+>>>>>>> 6fb6424e56d458679a42f807633254ef3935b7a7
