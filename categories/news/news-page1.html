@@ -1,8 +1,7 @@
 ---
-layout: default
+layout: page
 paginate_size: 10
 ---
-
 <div class="posts-list">
     {% assign filtered_posts = site.posts | where: "author", "ted" %}
     {% assign total_post_author = filtered_posts.size %}
