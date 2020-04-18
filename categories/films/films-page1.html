@@ -6,47 +6,60 @@ paginate_size: 10
 <h4>Review ve films</h4>
 <h3>Posts</h3>
 <div class="posts-list">
-    {% assign filtered_posts = site.posts | where: 'group', 'films' %}
-    {% assign total_post_author = filtered_posts.size %}
-    {% assign total_page_author = total_post_author | divided_by: 10  %}
-    {% assign modulo_page_author = total_post_author | modulo: 10  %}
-    {% for i in (0..9) %}
-      {% if i != total_post_author %}
-      <article class="post-preview">
-        <a href="{{ filtered_posts[i].url | relative_url }}">
-          <h2 class="post-title">{{ filtered_posts[i].title }}</h2>
-    
-          {% if filtered_posts[i].subtitle %}
-          <h3 class="post-subtitle">
-            {{ filtered_posts[i].subtitle }}
-          </h3>
-          {% endif %}
-        </a>
-    
-        <p class="post-meta">
-          Posted on {{ filtered_posts[i].date | date: site.date_format }}
-        </p>
-    
-        <div class="post-entry-container">
-          {% if filtered_posts[i].image %}
-          <div class="post-image">
-            <a href="{{ filtered_posts[i].url | relative_url }}">
-              <img src="{{ filtered_posts[i].image | relative_url }}">
-            </a>
-          </div>
-          {% endif %}
-          <div class="post-entry">
-            {{ filtered_posts[i].excerpt | strip_html | xml_escape | truncatewords: site.excerpt_length }}
-            {% assign excerpt_word_count = filtered_posts[i].excerpt | number_of_words %}
-            {% if filtered_posts[i].content != filtered_posts[i].excerpt or excerpt_word_count > site.excerpt_length %}
-            <a href="{{ filtered_posts[i].url | relative_url }}" class="post-read-more">[Read&nbsp;More]</a>
-            {% endif %}
-          </div>
-        </div>
-    
-      </article>
-      {% else %}
-        {% break %}
+  {% assign filtered_posts = site.posts | where: 'group', 'films' %}
+  {% assign total_post_author = filtered_posts.size %}
+  {% assign total_page_author = total_post_author | divided_by: 10  %}
+  {% assign modulo_page_author = total_post_author | modulo: 10  %}
+  {% for i in (0..9) %}
+  {% if i != total_post_author %}
+  <article class="post-preview">
+    <a href="{{ filtered_posts[i].url | relative_url }}">
+      <h2 class="post-title">{{ filtered_posts[i].title }}</h2>
+
+      {% if filtered_posts[i].subtitle %}
+      <h3 class="post-subtitle">
+        {{ filtered_posts[i].subtitle }}
+      </h3>
       {% endif %}
-    {% endfor %}
+    </a>
+
+    <p class="post-meta">
+      Posted on {{ filtered_posts[i].date | date: site.date_format }}
+    </p>
+
+    <div class="post-entry-container">
+      {% if filtered_posts[i].image %}
+      <div class="post-image">
+        <a href="{{ filtered_posts[i].url | relative_url }}">
+          <img src="{{ filtered_posts[i].image | relative_url }}">
+        </a>
+      </div>
+      {% endif %}
+      <div class="post-entry">
+        {{ filtered_posts[i].excerpt | strip_html | xml_escape | truncatewords: site.excerpt_length }}
+        {% assign excerpt_word_count = filtered_posts[i].excerpt | number_of_words %}
+        {% if filtered_posts[i].content != filtered_posts[i].excerpt or excerpt_word_count > site.excerpt_length %}
+        <a href="{{ filtered_posts[i].url | relative_url }}" class="post-read-more">[Read&nbsp;More]</a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if filtered_posts[i].tags.size > 0 %}
+    <div class="blog-tags">
+      Tags:
+      {% if site.link-tags %}
+      {% for tag in filtered_posts[i].tags %}
+      <a href="{{ '/tags' | relative_url }}#{{- tag -}}">{{- tag -}}</a>
+      {% endfor %}
+      {% else %}
+      {{ filtered_posts[i].tags | join: ", " }}
+      {% endif %}
+    </div>
+    {% endif %}
+
+  </article>
+  {% else %}
+  {% break %}
+  {% endif %}
+  {% endfor %}
 </div>
