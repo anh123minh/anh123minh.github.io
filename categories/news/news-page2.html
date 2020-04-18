@@ -13,7 +13,7 @@ paginate_size: 10
   {% for i in (10..19) %}
   {% if i != total_post_author %}
   <article class="post-preview">
-    <a href="{{ filtered_posts[i].url | prepend: site.baseurl }}">
+    <a href="{{ filtered_posts[i].url | relative_url }}">
       <h2 class="post-title">{{ filtered_posts[i].title }}</h2>
 
       {% if filtered_posts[i].subtitle %}
@@ -22,14 +22,40 @@ paginate_size: 10
       </h3>
       {% endif %}
     </a>
+
     <p class="post-meta">
-      Posted on {{ filtered_posts[i].date | date: "%B %-d, %Y" }}
+      Posted on {{ filtered_posts[i].date | date: site.date_format }}
     </p>
 
-    <div class="post-entry">
-      {{ filtered_posts[i].content | truncatewords: 50 | strip_html | xml_escape}}
-      <span href="{{ filtered_posts[i].url | prepend: site.baseurl }}" class="post-read-more">[Read&nbsp;More]</span>
+    <div class="post-entry-container">
+      {% if filtered_posts[i].image %}
+      <div class="post-image">
+        <a href="{{ filtered_posts[i].url | relative_url }}">
+          <img src="{{ filtered_posts[i].image | relative_url }}">
+        </a>
+      </div>
+      {% endif %}
+      <div class="post-entry">
+        {{ filtered_posts[i].excerpt | strip_html | xml_escape | truncatewords: site.excerpt_length }}
+        {% assign excerpt_word_count = filtered_posts[i].excerpt | number_of_words %}
+        {% if filtered_posts[i].content != filtered_posts[i].excerpt or excerpt_word_count > site.excerpt_length %}
+        <a href="{{ filtered_posts[i].url | relative_url }}" class="post-read-more">[Read&nbsp;More]</a>
+        {% endif %}
+      </div>
     </div>
+
+    {% if filtered_posts[i].tags.size > 0 %}
+    <div class="blog-tags">
+      Tags:
+      {% if site.link-tags %}
+      {% for tag in filtered_posts[i].tags %}
+      <a href="{{ '/tags' | relative_url }}#{{- tag -}}">{{- tag -}}</a>
+      {% endfor %}
+      {% else %}
+      {{ filtered_posts[i].tags | join: ", " }}
+      {% endif %}
+    </div>
+    {% endif %}
 
   </article>
   {% else %}
@@ -46,10 +72,10 @@ paginate_size: 10
     <span>&laquo; Prev</span>
   {% endif %} -->
 
-  
+
   <a href="/categories/news/news-page1">1</a>
   <span class="webjeda">2</span>
-      
+
 
   <!-- {% if paginator.next_page %}
     <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a>
