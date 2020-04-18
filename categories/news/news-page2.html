@@ -6,35 +6,36 @@ paginate_size: 10
 <h4>Tin tuc moi</h4>
 <h3>Posts</h3>
 <div class="posts-list">
-    {% assign filtered_posts = site.posts | where: 'group', 'news' %}
-    {% assign total_post_author = filtered_posts.size %}
-    {% assign total_page_author = total_post_author | divided_by: 10  %}
-    {% assign modulo_page_author = total_post_author | modulo: 10  %}
-    {% for i in (0..9) %}
-      {% if i != total_post_author %}
-        <article class="post-preview">
-          <a href="{{ filtered_posts[i].url | prepend: site.baseurl }}">
-            <h2 class="post-title">{{ filtered_posts[i].title }}</h2>
-  
-            {% if filtered_posts[i].subtitle %}
-            <h3 class="post-subtitle">
-              {{ filtered_posts[i].subtitle }}
-            </h3>
-            {% endif %}
-            <p class="post-meta">
-              Posted on {{ filtered_posts[i].date | date: "%B %-d, %Y" }}
-            </p>
-  
-            <div class="post-entry">
-              {{ filtered_posts[i].content | truncatewords: 50 | strip_html | xml_escape}}
-              <span href="{{ filtered_posts[i].url | prepend: site.baseurl }}" class="post-read-more">[Read&nbsp;More]</span>
-            </div>
-          </a>
-        </article>
-      {% else %}
-        {% break %}
+  {% assign filtered_posts = site.posts | where: 'group', 'news' %}
+  {% assign total_post_author = filtered_posts.size %}
+  {% assign total_page_author = total_post_author | divided_by: 10  %}
+  {% assign modulo_page_author = total_post_author | modulo: 10  %}
+  {% for i in (10..19) %}
+  {% if i != total_post_author %}
+  <article class="post-preview">
+    <a href="{{ filtered_posts[i].url | prepend: site.baseurl }}">
+      <h2 class="post-title">{{ filtered_posts[i].title }}</h2>
+
+      {% if filtered_posts[i].subtitle %}
+      <h3 class="post-subtitle">
+        {{ filtered_posts[i].subtitle }}
+      </h3>
       {% endif %}
-    {% endfor %}
+    </a>
+    <p class="post-meta">
+      Posted on {{ filtered_posts[i].date | date: "%B %-d, %Y" }}
+    </p>
+
+    <div class="post-entry">
+      {{ filtered_posts[i].content | truncatewords: 50 | strip_html | xml_escape}}
+      <span href="{{ filtered_posts[i].url | prepend: site.baseurl }}" class="post-read-more">[Read&nbsp;More]</span>
+    </div>
+
+  </article>
+  {% else %}
+  {% break %}
+  {% endif %}
+  {% endfor %}
 </div>
 
 <!-- pagination -->
@@ -48,7 +49,6 @@ paginate_size: 10
   
   <a href="/categories/news/news-page1">1</a>
   <span class="webjeda">2</span>
-  <a href="/">2</a>
       
 
   <!-- {% if paginator.next_page %}
