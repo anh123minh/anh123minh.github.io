@@ -44,7 +44,7 @@ paginate_size: 10
       </div>
     </div>
 
-    <!-- {% if filtered_posts[i].tags.size > 0 %}
+    {% if filtered_posts[i].tags.size > 0 %}
     <div class="blog-tags">
       Tags:
       {% if site.link-tags %}
@@ -55,7 +55,7 @@ paginate_size: 10
       {{ filtered_posts[i].tags | join: ", " }}
       {% endif %}
     </div>
-    {% endif %} -->
+    {% endif %}
 
   </article>
   {% else %}
